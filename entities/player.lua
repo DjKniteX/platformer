@@ -119,7 +119,6 @@ function player:update(dt)
 end
 
 function player:draw()
-  --love.graphics.draw(self.img, self.x, self.y)
   love.graphics.draw(self.img, frames[currentFrame], self.x, self.y)
 end
 
