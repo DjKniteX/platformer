@@ -1,12 +1,26 @@
 local Class = require 'libs/hump/class'
 local Entity = require 'entities/Entity'
 
+local time = 0
+local maxTime = 0.080
+local frames = {}
+local currentFrame = 1
+
+
+
 local player = Class{
   __includes = Entity -- Player class inherits our Entity class
 }
 
 function player:init(world, x, y)
   self.img = love.graphics.newImage('/assets/linus.png')
+  for y = 1, 1 do
+    for x = 1, 6 do
+      table.insert(frames, love.graphics.newQuad(32 * x - 32, 32 * y - 32, 32, 32, self.img:getDimensions()))
+    end
+  end
+
+  
 
   Entity.init(self, world, x, y, self.img:getWidth(), self.img:getHeight())
 
@@ -82,10 +96,31 @@ function player:update(dt)
       self.isGrounded = true
     end
   end
+
+	--update our time event each frame.
+	time = time + dt
+
+	--when time becomes equal or bigger than maximum time;
+	if time >= maxTime then
+		--reset it
+		time = 0
+
+		--and update our current frame.
+		currentFrame = currentFrame + 1
+
+		--if current frame becomes bigger than length of the frames,
+		if currentFrame > #frames then
+
+			--reset it to first frame, and loop restarts.
+			currentFrame = 1
+		end
+	end
+
 end
 
 function player:draw()
-  love.graphics.draw(self.img, self.x, self.y)
+  --love.graphics.draw(self.img, self.x, self.y)
+  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y)
 end
 
 return player
