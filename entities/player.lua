@@ -5,7 +5,7 @@ local time = 0
 local maxTime = 0.080
 local frames = {}
 local currentFrame = 1
-
+local jump = love.audio.newSource("assets/jump.mp3", "static")
 
 
 local player = Class{
@@ -39,6 +39,9 @@ function player:init(world, x, y)
   self.jumpAcc = 250 -- how fast do we accelerate towards the top
   self.jumpMaxSpeed = 9 -- our speed limit while jumping
 
+  self.sx = 1
+  self.sy = 1
+
   self.world:add(self, self:getRect())
 end
 
@@ -64,15 +67,19 @@ function player:update(dt)
   -- Apply gravity
   self.yVelocity = self.yVelocity + self.gravity * dt
 
-	if love.keyboard.isDown("left", "a") and self.xVelocity > -self.maxSpeed then
-		self.xVelocity = self.xVelocity - self.acc * dt
+  if love.keyboard.isDown("left", "a") and self.xVelocity > -self.maxSpeed then
+    self.xVelocity = self.xVelocity - self.acc * dt
+    self.sx = -1
 	elseif love.keyboard.isDown("right", "d") and self.xVelocity < self.maxSpeed then
+    self.sx = 1
     self.xVelocity = self.xVelocity + self.acc * dt
 	end
 
   -- The Jump code gets a lttle bit crazy.  Bare with me.
   if love.keyboard.isDown("up", "w", "space") then
     if -self.yVelocity < self.jumpMaxSpeed and not self.hasReachedMax then
+      jump:stop()
+      jump:play()
       self.yVelocity = self.yVelocity - self.jumpAcc * dt
     elseif math.abs(self.yVelocity) > self.jumpMaxSpeed then
       self.hasReachedMax = true
@@ -121,7 +128,7 @@ function player:update(dt)
 end
 
 function player:draw()
-  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y)
+  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy)
 end
 
 return player
