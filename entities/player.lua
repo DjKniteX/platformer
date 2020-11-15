@@ -29,15 +29,15 @@ function player:init(world, x, y)
   self.yVelocity = 0
   self.acc = 100 -- the acceleration of our player
   self.maxSpeed = 600 -- the top speed
-  self.friction = 20 -- slow our player down - we could toggle this situationally to create icy or slick platforms
+  self.friction = 50 -- slow our player down - we could toggle this situationally to create icy or slick platforms
   self.gravity = 80 -- we will accelerate towards the bottom
 
     -- These are values applying specifically to jumping
   self.isJumping = false -- are we in the process of jumping?
   self.isGrounded = false -- are we on the ground?
   self.hasReachedMax = false  -- is this as high as we can go?
-  self.jumpAcc = 500 -- how fast do we accelerate towards the top
-  self.jumpMaxSpeed = 11 -- our speed limit while jumping
+  self.jumpAcc = 250 -- how fast do we accelerate towards the top
+  self.jumpMaxSpeed = 9 -- our speed limit while jumping
 
   self.world:add(self, self:getRect())
 end
@@ -54,6 +54,8 @@ end
 
 function player:update(dt)
   local prevX, prevY = self.x, self.y
+  local width = 32
+	local height =32
 
   -- Apply Friction
   self.xVelocity = self.xVelocity * (1 - math.min(dt * self.friction, 1))
@@ -65,7 +67,7 @@ function player:update(dt)
 	if love.keyboard.isDown("left", "a") and self.xVelocity > -self.maxSpeed then
 		self.xVelocity = self.xVelocity - self.acc * dt
 	elseif love.keyboard.isDown("right", "d") and self.xVelocity < self.maxSpeed then
-		self.xVelocity = self.xVelocity + self.acc * dt
+    self.xVelocity = self.xVelocity + self.acc * dt
 	end
 
   -- The Jump code gets a lttle bit crazy.  Bare with me.
