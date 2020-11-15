@@ -41,6 +41,7 @@ function player:init(world, x, y)
 
   self.sx = 1
   self.sy = 1
+  self.offset = 15
 
   self.world:add(self, self:getRect())
 end
@@ -128,7 +129,7 @@ function player:update(dt)
 end
 
 function player:draw()
-  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy)
+  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
 end
 
 return player
