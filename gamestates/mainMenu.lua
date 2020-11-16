@@ -4,6 +4,7 @@ local mainMenu = {}
 Gamestate = require 'libs/hump/gamestate'
 
 local gameLevel1 = require 'gamestates/gameLevel1'
+local gameLevel2 = require 'gamestates/gameLevel2'
 
 local function newButton(text, fn)
     return {
@@ -22,7 +23,7 @@ function mainMenu:init()
     table.insert(buttons, newButton(
         "Start Game",
         function()
-            Gamestate.switch(gameLevel1)
+            Gamestate.switch(gameLevel2)
             print(state)
         end
     ))table.insert(buttons, newButton(
