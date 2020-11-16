@@ -8,6 +8,7 @@ local currentFrame = 1
 local jump = love.audio.newSource("assets/jump.mp3", "static")
 
 
+
 local player = Class{
   __includes = Entity -- Player class inherits our Entity class
 }
@@ -76,11 +77,10 @@ function player:update(dt)
     self.xVelocity = self.xVelocity + self.acc * dt
 	end
 
+
   -- The Jump code gets a lttle bit crazy.  Bare with me.
   if love.keyboard.isDown("up", "w", "space") then
     if -self.yVelocity < self.jumpMaxSpeed and not self.hasReachedMax then
-      jump:stop()
-      jump:play()
       self.yVelocity = self.yVelocity - self.jumpAcc * dt
     elseif math.abs(self.yVelocity) > self.jumpMaxSpeed then
       self.hasReachedMax = true
@@ -131,5 +131,6 @@ end
 function player:draw()
   love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
 end
+
 
 return player

@@ -1,5 +1,6 @@
 --conf.lua 
 -- LOVE configuration file
+-- by Miotto and TEAM SKYNITE
 
 love.conf = function(t)
     t.console = true -- enable the debug console for windows

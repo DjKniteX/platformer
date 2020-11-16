@@ -26,7 +26,7 @@ local LevelBase = Class{
 
 function LevelBase:keypressed(key)
     -- All levels will have a pause menu
-    if Gamestate.current() ~= pause and key == 'p' then
+    if Gamestate.current() ~= pause and key == 'escape' then
       Gamestate.push(pause)
     end
   end
