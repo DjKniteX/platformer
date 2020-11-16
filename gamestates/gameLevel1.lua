@@ -18,6 +18,7 @@ local gameLevel1 = Class{
 }
 
 function gameLevel1:init()
+  love.graphics.reset()
   LevelBase.init(self, 'assets/levels/level_1.lua')
 end
 
@@ -34,6 +35,7 @@ function gameLevel1:update(dt)
 end
 
 function gameLevel1:draw()
+  love.graphics.reset()
   -- Attach the camera before drawing the entities
   camera:set()
 

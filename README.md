@@ -5,3 +5,8 @@ Platformer game made to be a prequel for last year's Game Off 2019 submission: H
 Developed by the same team
 
 teamskynite.net
+
+# TEAM
+Nikki X - Main Programmer
+Matt S - Level Design/Coder
+Mei S - Art
