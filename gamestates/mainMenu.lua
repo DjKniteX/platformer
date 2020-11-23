@@ -23,7 +23,7 @@ function mainMenu:init()
     table.insert(buttons, newButton(
         "Start Game",
         function()
-            Gamestate.switch(gameLevel2)
+            Gamestate.switch(gameLevel1)
             print(state)
         end
     ))table.insert(buttons, newButton(
