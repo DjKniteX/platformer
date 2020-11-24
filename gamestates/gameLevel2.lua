@@ -8,12 +8,13 @@ local LevelBase = require 'gamestates.LevelBase'
 
 -- Import the Entities we will build.
 local Player = require 'entities.player'
+local snowBlob = require 'entities.snowBlob'
 local camera = require 'libs.camera'
 
 -- Declare a couple immportant variables
 player = nil
 
-local gameLevel2 = Class{
+local gameLevel2 = Class{--frozenforest
   __includes = LevelBase
 }
 
@@ -23,7 +24,21 @@ end
 
 function gameLevel2:enter()
   player = Player(self.world,  32, 350)
+  blob1 = snowBlob(self.world, 12*16, 21*16)
+  blob2 = snowBlob(self.world, 11*16, 33*16)
+  blob3 = snowBlob(self.world, 20*16, 33*16)
+  blob4 = snowBlob(self.world, 13*16, 40*16)
+  blob5 = snowBlob(self.world, 15*16, 48*16)
+  blob6 = snowBlob(self.world, 44*16, 9*16)
+  blob7 = snowBlob(self.world, 33*16, 23*16)
   LevelBase.Entities:add(player) -- add the player to the level
+  LevelBase.Entities:add(blob1)
+  LevelBase.Entities:add(blob2)
+  LevelBase.Entities:add(blob3)
+  LevelBase.Entities:add(blob4)
+  LevelBase.Entities:add(blob5)
+  LevelBase.Entities:add(blob6)
+  LevelBase.Entities:add(blob7)
 end
 
 function gameLevel2:update(dt)
