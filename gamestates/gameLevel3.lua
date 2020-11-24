@@ -15,7 +15,7 @@ local camera = require 'libs.camera'
 -- Declare a couple immportant variables
 player = nil
 
-local gameLevel3 = Class{
+local gameLevel3 = Class{--desert
   __includes = LevelBase
 }
 

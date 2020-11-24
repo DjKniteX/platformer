@@ -9,12 +9,12 @@ local jump = love.audio.newSource("assets/jump.mp3", "static")
 
 
 
-local cactusMan = Class{
+local snowBlob = Class{
   __includes = Entity -- Player class inherits our Entity class
 }
 
-function cactusMan:init(world, x, y)
-  self.img = love.graphics.newImage('/assets/Monster-Desert Cactus Monster.png')
+function snowBlob:init(world, x, y)
+  self.img = love.graphics.newImage('/assets/Monster-Snowland Ice Ball.png')
   for y = 1, 1 do
     for x = 1, 6 do
       table.insert(frames, love.graphics.newQuad(16 * x - 16, 16 * y - 16, 16, 16, self.img:getDimensions()))
@@ -44,12 +44,10 @@ function cactusMan:init(world, x, y)
   self.sy = 1
   self.offset = 15
 
-  self.i = 0
-
   self.world:add(self, self:getRect())
 end
 
-function cactusMan:collisionFilter(other)
+function snowBlob:collisionFilter(other)
   local x, y, w, h = self.world:getRect(other)
   local playerBottom = self.y + self.h
   local otherBottom = y + h
@@ -59,14 +57,15 @@ function cactusMan:collisionFilter(other)
   end
 end
 
-function cactusMan:update(dt)
-  --local prevX, prevY = self.x, self.y
-  
+function snowBlob:update(dt)
+  local prevX, prevY = self.x, self.y
+  local width = 32
+  local height =32 
 end
 
-function cactusMan:draw()
+function snowBlob:draw()
   love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
 end
 
 
-return cactusMan
+return snowBlob
