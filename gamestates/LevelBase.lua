@@ -5,7 +5,7 @@
 local bump = require 'libs/bump/bump'
 local Gamestate = require 'libs/hump/gamestate'
 local Class = require 'libs/hump/class'
-local sti = require 'libs/sti/sti' -- New addition here
+local sti = require 'libs/sti' -- New addition here
 local Entities = require 'entities/Entities'
 local camera = require 'libs/camera' -- New addition here
 

@@ -4,6 +4,7 @@ local mainMenu = {}
 Gamestate = require 'libs/hump/gamestate'
 
 local gameLevel1 = require 'gamestates/gameLevel1'
+local gameLevel2 = require 'gamestates/gameLevel2'
 
 local function newButton(text, fn)
     return {
