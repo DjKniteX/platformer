@@ -11,6 +11,8 @@ local maxTime = 0.080
 local frames = {}
 local currentFrame = 1
 
+require("entities/bone")
+
 function player:init(world, x, y)
   self.img = love.graphics.newImage('/assets/linus.png')
   for y = 1, 1 do
@@ -19,7 +21,7 @@ function player:init(world, x, y)
     end
   end
 
-  Entity.init(self, world, x, y, 16, self.img:getHeight())
+  Entity.init(self, world, x, y, 8, self.img:getHeight())
 
   -- Add our unique player values
   self.xVelocity = 0 -- current velocity on x, y axes
@@ -37,7 +39,24 @@ function player:init(world, x, y)
   self.jumpMaxSpeed = 11 -- our speed limit while jumping
 
   self.world:add(self, self:getRect())
+
+  self.sx = 1
+  self.sy = 1
+  self.offset = 15
+
+  -- physics system
+  self.width = 20
+  self.height = 60
+  self.physics = {}
+  self.physics.body = love.physics.newBody(World, self.x, self.y, "dynamic")
+  self.physics.body:setFixedRotation(true)
+  self.physics.shape = love.physics.newRectangleShape(self.width, self.height)
+  self.physics.fixture = love.physics.newFixture(self.physics.body, self.physics.shape)
+
+    -- eventually scoring system
+  self.score = 0
 end
+
 
 function player:collisionFilter(other)
   local x, y, w, h = self.world:getRect(other)
@@ -48,6 +67,7 @@ function player:collisionFilter(other)
     return 'slide'
   --end
 end
+
 
 --[[
 player.filter = function(item, other)
@@ -66,7 +86,12 @@ player.filter = function(item, other)
 end
 ]]
 
+function player:incrementBones()
+  self.score = self.score  + 1
+end
+
 function player:update(dt)
+  Bone.updateAll(dt)
   local prevX, prevY = self.x, self.y
 
   -- Apply Friction
@@ -77,9 +102,11 @@ function player:update(dt)
   self.yVelocity = self.yVelocity + self.gravity * dt
 
 	if love.keyboard.isDown("left", "a") and self.xVelocity > -self.maxSpeed then
-		self.xVelocity = self.xVelocity - self.acc * dt
+    self.xVelocity = self.xVelocity - self.acc * dt
+    self.sx = -1
 	elseif love.keyboard.isDown("right", "d") and self.xVelocity < self.maxSpeed then
-		self.xVelocity = self.xVelocity + self.acc * dt
+    self.xVelocity = self.xVelocity + self.acc * dt
+    self.sx = 1
 	end
 
   -- The Jump code gets a lttle bit crazy.  Bare with me.
@@ -134,6 +161,16 @@ end
 
 function player:draw()
   love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
+  love.graphics.rectangle('line', self:getRect())
+end
+
+function beginContact(a, b, collisions)
+	if Bone.beginContact(a, b, collisions) then return end
+	player:beginContact(a, b, collisions)
+end
+
+function endContact(a, b, collisions)
+	player:endContact(a, b, collisions)
 end
 
 return player

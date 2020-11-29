@@ -2,6 +2,7 @@
 -- Import our libraries.
 local Gamestate = require 'libs/hump/gamestate'
 local Class = require 'libs/hump/class'
+require("entities/bone")
 
 -- Grab our base class
 local LevelBase = require 'gamestates.LevelBase'
@@ -20,6 +21,10 @@ local gameLevel1 = Class{
 function gameLevel1:init()
   love.graphics.reset()
   LevelBase.init(self, 'assets/levels/level_1.lua')
+  Bone.new(300, 200)
+  Bone.new(400, 200)
+  Bone.new(500, 100)
+
 end
 
 function gameLevel1:enter()
@@ -32,6 +37,7 @@ function gameLevel1:update(dt)
   LevelBase.Entities:update(dt) -- this executes the update function for each individual Entity
 
   LevelBase.positionCamera(self, player, camera)
+  Bone.updateAll(dt)
 end
 
 function gameLevel1:draw()
@@ -42,8 +48,18 @@ function gameLevel1:draw()
   self.map:draw(-camera.x, -camera.y) -- Remember that we inherited map from LevelBase
   LevelBase.Entities:draw() -- this executes the draw function for each individual Entity
 
+  Bone.drawAll()
+
   camera:unset()
   -- Be sure to detach after running to avoid weirdness
+
+
+end
+
+function beginContact(a, b, collision)
+	if Bone.beginContact(a, b, collision) then return end
+	if Spike.beginContact(a, b, collision) then return end
+	Player:beginContact(a, b, collision)
 end
 
 -- All levels will have a pause menu
