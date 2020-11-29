@@ -35,6 +35,7 @@ function Bone:remove()
 end
 
 function Bone:update(dt)
+  
    self:spin(dt)
    self:checkRemove()
 end
@@ -77,11 +78,5 @@ function Bone.beginContact(a, b, collisions)
          end
       end
    end
-end
-
-function Bone.checkBone()
-    if player.yVelocity == Bone.x then 
-        print("Hello World")
-    end
 end
 
