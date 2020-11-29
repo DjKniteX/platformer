@@ -16,14 +16,14 @@ local dBoss = Class{
 function dBoss:init(world, x, y)
   self.img = love.graphics.newImage('/assets/Blackhand sprite sheets.png')
   for y = 1, 1 do
-    for x = 1, 6 do
+    for x = 1, 1 do
       table.insert(frames, love.graphics.newQuad(240 * x - 240, 240 * y - 240, 240, 240, self.img:getDimensions()))
     end
   end
 
   
 
-  Entity.init(self, world, x, y, self.img:getWidth(), self.img:getHeight())
+  Entity.init(self, world, x, y, 240, self.img:getHeight())
 
   -- Add our unique player values
   self.xVelocity = 0 -- current velocity on x, y axes
