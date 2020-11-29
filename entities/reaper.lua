@@ -9,21 +9,21 @@ local jump = love.audio.newSource("assets/jump.mp3", "static")
 
 
 
-local snowBlob = Class{
+local reaper = Class{
   __includes = Entity -- Player class inherits our Entity class
 }
 
-function snowBlob:init(world, x, y)
-  self.img = love.graphics.newImage('/assets/Monster-Snowland Ice Ball.png')
+function reaper:init(world, x, y)
+  self.img = love.graphics.newImage('/assets/Undead executioner puppet/png/idle.png')
   for y = 1, 1 do
     for x = 1, 1 do
-      table.insert(frames, love.graphics.newQuad(16 * x - 16, 16 * y - 16, 16, 16, self.img:getDimensions()))
+      table.insert(frames, love.graphics.newQuad(125 * x - 125, 125 * y - 125, 125, 100, self.img:getDimensions()))
     end
   end
 
   
 
-  Entity.init(self, world, x, y, 16, self.img:getHeight())
+  Entity.init(self, world, x, y, 125, self.img:getHeight())
 
   -- Add our unique player values
   self.xVelocity = 0 -- current velocity on x, y axes
@@ -47,7 +47,7 @@ function snowBlob:init(world, x, y)
   self.world:add(self, self:getRect())
 end
 
-function snowBlob:collisionFilter(other)
+function reaper:collisionFilter(other)
   local x, y, w, h = self.world:getRect(other)
   local playerBottom = self.y + self.h
   local otherBottom = y + h
@@ -57,15 +57,16 @@ function snowBlob:collisionFilter(other)
   end
 end
 
-function snowBlob:update(dt)
+function reaper:update(dt)
   local prevX, prevY = self.x, self.y
   local width = 32
   local height =32 
 end
 
-function snowBlob:draw()
+function reaper:draw()
   love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
+  love.graphics.scale(.5,.5)
 end
 
 
-return snowBlob
+return reaper

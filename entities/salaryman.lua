@@ -9,21 +9,21 @@ local jump = love.audio.newSource("assets/jump.mp3", "static")
 
 
 
-local snowBlob = Class{
+local salaryman = Class{
   __includes = Entity -- Player class inherits our Entity class
 }
 
-function snowBlob:init(world, x, y)
-  self.img = love.graphics.newImage('/assets/Monster-Snowland Ice Ball.png')
+function salaryman:init(world, x, y)
+  self.img = love.graphics.newImage('/assets/Super Strong Normal Guy/Normal Guy Idle/Normal_Guy_Idle_Spritesheet.png')
   for y = 1, 1 do
     for x = 1, 1 do
-      table.insert(frames, love.graphics.newQuad(16 * x - 16, 16 * y - 16, 16, 16, self.img:getDimensions()))
+      table.insert(frames, love.graphics.newQuad(15 * x - 15, 15 * y - 15, 15, 20, self.img:getDimensions()))
     end
   end
 
   
 
-  Entity.init(self, world, x, y, 16, self.img:getHeight())
+  Entity.init(self, world, x, y, 15, 20)
 
   -- Add our unique player values
   self.xVelocity = 0 -- current velocity on x, y axes
@@ -44,10 +44,12 @@ function snowBlob:init(world, x, y)
   self.sy = 1
   self.offset = 15
 
+  self.i = 0
+
   self.world:add(self, self:getRect())
 end
 
-function snowBlob:collisionFilter(other)
+function salaryman:collisionFilter(other)
   local x, y, w, h = self.world:getRect(other)
   local playerBottom = self.y + self.h
   local otherBottom = y + h
@@ -57,15 +59,16 @@ function snowBlob:collisionFilter(other)
   end
 end
 
-function snowBlob:update(dt)
-  local prevX, prevY = self.x, self.y
+function salaryman:update(dt)
+  --local prevX, prevY = self.x, self.y
   local width = 32
   local height =32 
+
 end
 
-function snowBlob:draw()
+function salaryman:draw()
   love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
 end
 
 
-return snowBlob
+return salaryman

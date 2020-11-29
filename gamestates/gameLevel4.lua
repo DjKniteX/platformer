@@ -8,6 +8,8 @@ local LevelBase = require 'gamestates.LevelBase'
 
 -- Import the Entities we will build.
 local Player = require 'entities.player'
+local salaryman = require 'entities.salaryman'
+local buffBoss = require 'entities.buffBoss'
 local camera = require 'libs.camera'
 
 -- Declare a couple immportant variables
@@ -18,11 +20,11 @@ local gameLevel4 = Class{--town
 }
 
 function gameLevel4:init()
-  LevelBase.init(self, 'assets/Frozen_Forest_Tileset/VillageTown.lua')
+  LevelBase.init(self, 'assets/Frozen_Forest_Tileset/VillageTownNoSlope.lua')
 end
 
 function gameLevel4:enter()
-  player = Player(self.world,  45*16, 45*16)
+  player = Player(self.world,  45*16, 45*16-4)
   LevelBase.Entities:add(player) -- add the player to the level
 end
 
@@ -37,8 +39,12 @@ function gameLevel4:draw()
   -- Attach the camera before drawing the entities
   camera:set()
   
-  --camera:setScale(2,2)
+  love.graphics.setBackgroundColor(.529,.808,.922)
+  --camera:setScale(2,2)s
+  love.graphics.push()
+  love.graphics.scale(2, 2) 
   self.map:draw(-camera.x, -camera.y) -- Remember that we inherited map from LevelBase
+  love.graphics.pop()
   LevelBase.Entities:draw() -- this executes the draw function for each individual Entity
 
   camera:unset()

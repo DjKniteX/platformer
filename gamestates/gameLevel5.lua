@@ -8,6 +8,8 @@ local LevelBase = require 'gamestates.LevelBase'
 
 -- Import the Entities we will build.
 local Player = require 'entities.player'
+local caterpillar = require 'entities.caterpillar'
+local reaper = require 'entities.reaper'
 local camera = require 'libs.camera'
 
 -- Declare a couple immportant variables
@@ -18,7 +20,7 @@ local gameLevel5 = Class{--jungle
 }
 
 function gameLevel5:init()
-  LevelBase.init(self, 'assets/Frozen_Forest_Tileset/DeepJungle.lua')
+  LevelBase.init(self, 'assets/Frozen_Forest_Tileset/DeepJungleNoSlope.lua')
 end
 
 function gameLevel5:enter()
@@ -36,7 +38,7 @@ end
 function gameLevel5:draw()
   -- Attach the camera before drawing the entities
   camera:set()
-  
+  love.graphics.setBackgroundColor(.529,.808,.922)
   --camera:setScale(2,2)
   self.map:draw(-camera.x, -camera.y) -- Remember that we inherited map from LevelBase
   LevelBase.Entities:draw() -- this executes the draw function for each individual Entity
