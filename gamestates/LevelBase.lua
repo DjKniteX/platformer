@@ -32,16 +32,24 @@ function LevelBase:keypressed(key)
   end
 
   function LevelBase:positionCamera(player, camera)
+    local mapHeight = self.map.height * self.map.tilewidth
     local mapWidth = self.map.width * self.map.tilewidth -- get width in pixels
-    local halfScreen =  love.graphics.getWidth() / 2
+    local halfScreenX =  love.graphics.getWidth() / 2
+    local halfScreenY = love.graphics.getHeight() / 2
   
-    if player.x < (mapWidth - halfScreen) then -- use this value until we're approaching the end.
-      boundX = math.max(0, player.x - halfScreen) -- lock camera at the left side of the screen.
+    if player.x < (mapWidth - halfScreenX) then -- use this value until we're approaching the end.
+      boundX = math.max(0, player.x - halfScreenX) -- lock camera at the left side of the screen.
     else
-      boundX = math.min(player.x - halfScreen, mapWidth - love.graphics.getWidth()) -- lock camera at the right side of the screen
+      boundX = math.min(player.x - halfScreenX, mapWidth - love.graphics.getWidth()) -- lock camera at the right side of the screen
+    end
+    --y value
+    if player.y < (mapHeight - halfScreenY) then -- use this value until we're approaching the end.
+      boundY = math.max(0, player.y - halfScreenY) -- lock camera at the left side of the screen.
+    else
+      boundY = math.min(player.y - halfScreenY, mapHeight - love.graphics.getHeight()) -- lock camera at the right side of the screen
     end
   
-    camera:setPosition(boundX, 0)
+    camera:setPosition(boundX, boundY)
   end
 
   return LevelBase

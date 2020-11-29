@@ -8,7 +8,6 @@ local LevelBase = require 'gamestates.LevelBase'
 
 -- Import the Entities we will build.
 local Player = require 'entities.player'
-local cactusMan = require 'entities.cactusMan'
 local dBoss = require 'entities.desertBoss'
 local camera = require 'libs.camera'
 
@@ -28,30 +27,8 @@ function gameLevel3:init()
 end
 
 function gameLevel3:enter()
-  player = Player(self.world,  16*30, 16)
-  cactus1 = cactusMan(self.world, 160,32)
-  cactus2 = cactusMan(self.world, 80,176)
-  cactus3 = cactusMan(self.world, 10*16,29*16)
-  cactus4 = cactusMan(self.world, 14*16,34*16)
-  cactus5 = cactusMan(self.world, 17*16,43*16)
-  cactus6 = cactusMan(self.world, 35*16,19*16)
-  cactus7 = cactusMan(self.world, 39*16,19*16)
-  cactus8 = cactusMan(self.world, 45*16,544)
-  cactus9 = cactusMan(self.world, 33*16,46*16)
-  cactus10 = cactusMan(self.world, 45*16,46*16)
-  boss = dBoss(self.world, 8*16, 10*16)
+  player = Player(self.world,  432,528)
   LevelBase.Entities:add(player) -- add the player to the level
-  LevelBase.Entities:add(cactus1)
-  LevelBase.Entities:add(cactus2)
-  LevelBase.Entities:add(cactus3)
-  LevelBase.Entities:add(cactus4)
-  LevelBase.Entities:add(cactus5)
-  LevelBase.Entities:add(cactus6)
-  LevelBase.Entities:add(cactus7)
-  LevelBase.Entities:add(cactus8)
-  LevelBase.Entities:add(cactus9)
-  LevelBase.Entities:add(cactus10)
-  LevelBase.Entities:add(boss)
 end
 
 function gameLevel3:update(dt)
