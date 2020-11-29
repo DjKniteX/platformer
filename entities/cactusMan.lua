@@ -16,14 +16,14 @@ local cactusMan = Class{
 function cactusMan:init(world, x, y)
   self.img = love.graphics.newImage('/assets/Monster-Desert Cactus Monster.png')
   for y = 1, 1 do
-    for x = 1, 6 do
-      table.insert(frames, love.graphics.newQuad(16 * x - 16, 16 * y - 16, 16, 16, self.img:getDimensions()))
+    for x = 1, 1 do
+      table.insert(frames, love.graphics.newQuad(0, 0, 16, 16, self.img:getDimensions()))
     end
   end
 
   
 
-  Entity.init(self, world, x, y, self.img:getWidth(), self.img:getHeight())
+  Entity.init(self, world, x, y, 16, self.img:getHeight())
 
   -- Add our unique player values
   self.xVelocity = 0 -- current velocity on x, y axes
@@ -61,6 +61,9 @@ end
 
 function cactusMan:update(dt)
   --local prevX, prevY = self.x, self.y
+  local width = 32
+  local height =32 
+
   
 end
 
