@@ -12,5 +12,5 @@ local pause = require 'gamestates/pause'
 
 function love.load()
   Gamestate.registerEvents()
-  Gamestate.switch(gameLevel4)
+  Gamestate.switch(gameLevel1)
 end
