@@ -91,7 +91,7 @@ function player:incrementBones()
 end
 
 function player:update(dt)
-  print(self.x)
+  print(self.x, self.y)
   Bone.updateAll(dt)
   local prevX, prevY = self.x, self.y
 
