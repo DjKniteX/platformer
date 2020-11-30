@@ -18,6 +18,8 @@ local gameLevel2 = Class{--frozenforest
   __includes = LevelBase
 }
 
+
+
 function gameLevel2:init()
   LevelBase.init(self, 'assets/Frozen_Forest_Tileset/FrostyForestNoSlope.lua')
 end
@@ -32,6 +34,7 @@ function gameLevel2:update(dt)
   LevelBase.Entities:update(dt) -- this executes the update function for each individual Entity
 
   LevelBase.positionCamera(self, player, camera)
+
 end
 
 function gameLevel2:draw()
