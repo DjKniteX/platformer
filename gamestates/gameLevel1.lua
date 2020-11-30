@@ -18,6 +18,8 @@ local gameLevel1 = Class{
   __includes = LevelBase
 }
 
+local gameLevel2 = require 'gamestates/gameLevel2'
+
 function gameLevel1:init()
   love.graphics.reset()
   LevelBase.init(self, 'assets/levels/level_1.lua')
@@ -38,6 +40,10 @@ function gameLevel1:update(dt)
 
   LevelBase.positionCamera(self, player, camera)
   Bone.updateAll(dt)
+
+  if player.x >= 515 then 
+    Gamestate.switch(gameLevel2)
+  end
 end
 
 function gameLevel1:draw()

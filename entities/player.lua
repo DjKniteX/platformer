@@ -28,7 +28,7 @@ function player:init(world, x, y)
   self.yVelocity = 0
   self.acc = 100 -- the acceleration of our player
   self.maxSpeed = 600 -- the top speed
-  self.friction = 20 -- slow our player down - we could toggle this situationally to create icy or slick platforms
+  self.friction = 50 -- slow our player down - we could toggle this situationally to create icy or slick platforms
   self.gravity = 80 -- we will accelerate towards the bottom
 
     -- These are values applying specifically to jumping
@@ -91,6 +91,7 @@ function player:incrementBones()
 end
 
 function player:update(dt)
+  print(self.x, self.y)
   Bone.updateAll(dt)
   local prevX, prevY = self.x, self.y
 
