@@ -13,5 +13,5 @@ local ending = require 'gamestates/ending'
 
 function love.load()
   Gamestate.registerEvents()
-  Gamestate.switch(ending)
+  Gamestate.switch(mainMenu)
 end
