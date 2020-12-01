@@ -21,7 +21,7 @@ function player:init(world, x, y)
     end
   end
 
-  Entity.init(self, world, x, y, 8, self.img:getHeight())
+  Entity.init(self, world, x, y, 8, 24)
 
   -- Add our unique player values
   self.xVelocity = 0 -- current velocity on x, y axes
@@ -161,7 +161,7 @@ function player:update(dt)
 end
 
 function player:draw()
-  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
+  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y-8,0,self.sx, self.sy,self.offset)
   love.graphics.rectangle('line', self:getRect())
 end
 

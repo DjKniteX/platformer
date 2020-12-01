@@ -5,6 +5,7 @@ local Class = require 'libs/hump/class'
 
 -- Grab our base class
 local LevelBase = require 'gamestates.LevelBase'
+local gameLevel4 = require 'gamestates/gameLevel4'
 
 -- Import the Entities we will build.
 local Player = require 'entities.player'
@@ -28,7 +29,9 @@ end
 
 function gameLevel3:enter()
   player = Player(self.world,  432,528)
+  boss = dBoss(self.world, 24*16,16*16)
   LevelBase.Entities:add(player) -- add the player to the level
+  LevelBase.Entities:add(boss)
 end
 
 function gameLevel3:update(dt)
@@ -36,11 +39,20 @@ function gameLevel3:update(dt)
   LevelBase.Entities:update(dt) -- this executes the update function for each individual Entity
 
   LevelBase.positionCamera(self, player, camera)
+
+  if player.x >= (21*16) and player.x < (22*16) and player.y >= (17*16) and player.y < (18*16) then 
+    Gamestate.switch(gameLevel4)
+  elseif player.x < 0 or player .x > 800 or player.y > 800 then
+    LevelBase.Entities:remove(player)
+    LevelBase.Entities:remove(boss)
+    Gamestate.switch(gameLevel3)
+  end
 end
 
 function gameLevel3:draw()
   -- Attach the camera before drawing the entities
   camera:set()
+  love.graphics.setBackgroundColor(.341,.145,.231)
   love.graphics.push()
   love.graphics.scale(2, 2) 
   love.graphics.draw(sun, -camera.x, -camera.y)

@@ -67,7 +67,7 @@ function buffBoss:update(dt)
 end
 
 function buffBoss:draw()
-  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
+  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,-self.sx, self.sy,self.offset)
 end
 
 

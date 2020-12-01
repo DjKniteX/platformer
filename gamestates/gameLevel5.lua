@@ -8,8 +8,7 @@ local LevelBase = require 'gamestates.LevelBase'
 
 -- Import the Entities we will build.
 local Player = require 'entities.player'
-local caterpillar = require 'entities.caterpillar'
-local reaper = require 'entities.reaper'
+local Reaper = require 'entities.reaper'
 local camera = require 'libs.camera'
 
 -- Declare a couple immportant variables
@@ -25,7 +24,9 @@ end
 
 function gameLevel5:enter()
   player = Player(self.world,  20*16, 5*16)
+  reaper = Reaper(self.world, 0*16, 40*16)
   LevelBase.Entities:add(player) -- add the player to the level
+  LevelBase.Entities:add(reaper)
 end
 
 function gameLevel5:update(dt)
@@ -33,6 +34,15 @@ function gameLevel5:update(dt)
   LevelBase.Entities:update(dt) -- this executes the update function for each individual Entity
 
   LevelBase.positionCamera(self, player, camera)
+  
+
+  if player.x  < 0 and player.y > self.map.height/2  and player.y < 800 then 
+    -- switch to video here
+  elseif player.x < 0 or player .x > 800 or player.y > 800 then
+    LevelBase.Entities:remove(player)
+    LevelBase.Entities:remove(reaper)
+    Gamestate.switch(gameLevel5)
+  end
 end
 
 function gameLevel5:draw()
@@ -51,5 +61,6 @@ end
 function gameLevel5:keypressed(key)
   LevelBase:keypressed(key)
 end
+
 
 return gameLevel5
