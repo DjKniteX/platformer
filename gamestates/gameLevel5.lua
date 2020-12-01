@@ -11,6 +11,8 @@ local Player = require 'entities.player'
 local Reaper = require 'entities.reaper'
 local camera = require 'libs.camera'
 
+local ending = require 'gamestates/ending'
+
 -- Declare a couple immportant variables
 player = nil
 
@@ -38,6 +40,7 @@ function gameLevel5:update(dt)
 
   if player.x  < 0 and player.y > self.map.height/2  and player.y < 800 then 
     -- switch to video here
+    Gamestate.switch(ending)
   elseif player.x < 0 or player .x > 800 or player.y > 800 then
     LevelBase.Entities:remove(player)
     LevelBase.Entities:remove(reaper)
@@ -46,6 +49,7 @@ function gameLevel5:update(dt)
 end
 
 function gameLevel5:draw()
+  love.graphics.reset()
   -- Attach the camera before drawing the entities
   camera:set()
   love.graphics.setBackgroundColor(.529,.808,.922)

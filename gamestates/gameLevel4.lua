@@ -46,6 +46,7 @@ function gameLevel4:update(dt)
 end
 
 function gameLevel4:draw()
+  love.graphics.reset()
   -- Attach the camera before drawing the entities
   camera:set()
   

@@ -9,8 +9,9 @@ local gameLevel3 = require 'gamestates/gameLevel3'
 local gameLevel4 = require 'gamestates/gameLevel4'
 local gameLevel5 = require 'gamestates/gameLevel5'
 local pause = require 'gamestates/pause'
+local ending = require 'gamestates/ending'
 
 function love.load()
   Gamestate.registerEvents()
-  Gamestate.switch(mainMenu)
+  Gamestate.switch(ending)
 end

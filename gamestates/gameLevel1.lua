@@ -41,8 +41,9 @@ function gameLevel1:update(dt)
   LevelBase.positionCamera(self, player, camera)
   Bone.updateAll(dt)
 
-  if player.x >= 515 then 
-    Gamestate.switch(gameLevel2)
+  if player.x >= 515 then
+  Gamestate.switch(gameLevel1)
+
   end
 end
 
