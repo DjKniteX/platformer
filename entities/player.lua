@@ -11,8 +11,6 @@ local maxTime = 0.080
 local frames = {}
 local currentFrame = 1
 
-require("entities/bone")
-
 function player:init(world, x, y)
   self.img = love.graphics.newImage('/assets/linus.png')
   for y = 1, 1 do
