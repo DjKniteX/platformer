@@ -5,7 +5,6 @@ local time = 0
 local maxTime = 0.080
 local frames = {}
 local currentFrame = 1
-local jump = love.audio.newSource("assets/jump.mp3", "static")
 
 
 
@@ -23,22 +22,7 @@ function snowBlob:init(world, x, y)
 
   
 
-  Entity.init(self, world, x, y, 16, self.img:getHeight())
-
-  -- Add our unique player values
-  self.xVelocity = 0 -- current velocity on x, y axes
-  self.yVelocity = 0
-  self.acc = 100 -- the acceleration of our player
-  self.maxSpeed = 600 -- the top speed
-  self.friction = 50 -- slow our player down - we could toggle this situationally to create icy or slick platforms
-  self.gravity = 80 -- we will accelerate towards the bottom
-
-    -- These are values applying specifically to jumping
-  self.isJumping = false -- are we in the process of jumping?
-  self.isGrounded = false -- are we on the ground?
-  self.hasReachedMax = false  -- is this as high as we can go?
-  self.jumpAcc = 250 -- how fast do we accelerate towards the top
-  self.jumpMaxSpeed = 9 -- our speed limit while jumping
+  Entity.init(self, world, x-8, y-8, 16, self.img:getHeight())
 
   self.sx = 1
   self.sy = 1
@@ -47,20 +31,7 @@ function snowBlob:init(world, x, y)
   self.world:add(self, self:getRect())
 end
 
-function snowBlob:collisionFilter(other)
-  local x, y, w, h = self.world:getRect(other)
-  local playerBottom = self.y + self.h
-  local otherBottom = y + h
-
-  if playerBottom <= y then -- bottom of player collides with top of platform.
-    return 'slide'
-  end
-end
-
 function snowBlob:update(dt)
-  local prevX, prevY = self.x, self.y
-  local width = 32
-  local height =32 
 end
 
 function snowBlob:draw()

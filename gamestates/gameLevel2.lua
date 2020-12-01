@@ -5,10 +5,11 @@ local Class = require 'libs/hump/class'
 
 -- Grab our base class
 local LevelBase = require 'gamestates.LevelBase'
+local gameLevel3 = require 'gamestates/gameLevel3'
 
 -- Import the Entities we will build.
 local Player = require 'entities.player'
---local snowBlob = require 'entities.snowBlob'
+local snowBlob = require 'entities.yeti'
 local camera = require 'libs.camera'
 
 -- Declare a couple immportant variables
@@ -26,7 +27,9 @@ end
 
 function gameLevel2:enter()
   player = Player(self.world,  32, 350)
+  yeti = snowBlob(self.world, 29*16, 46*16+8)
   LevelBase.Entities:add(player) -- add the player to the level
+  LevelBase.Entities:add(yeti)
 end
 
 function gameLevel2:update(dt)
@@ -35,6 +38,13 @@ function gameLevel2:update(dt)
 
   LevelBase.positionCamera(self, player, camera)
 
+  if player.x >= (30*16) and player.x < (31*16) and player.y >= (47*16) and player.y < (48*16) then 
+    Gamestate.switch(gameLevel3)
+  elseif player.x < 0 or player .x > 800 or player.y > 800 then
+    LevelBase.Entities:remove(player)
+    LevelBase.Entities:remove(yeti)
+    Gamestate.switch(gameLevel2)
+  end
 end
 
 function gameLevel2:draw()

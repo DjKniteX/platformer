@@ -23,7 +23,7 @@ function dBoss:init(world, x, y)
 
   
 
-  Entity.init(self, world, x, y, 240, self.img:getHeight())
+  Entity.init(self, world, x, y, 16, 32)
 
   -- Add our unique player values
   self.xVelocity = 0 -- current velocity on x, y axes
@@ -47,25 +47,15 @@ function dBoss:init(world, x, y)
   self.world:add(self, self:getRect())
 end
 
-function dBoss:collisionFilter(other)
-  local x, y, w, h = self.world:getRect(other)
-  local playerBottom = self.y + self.h
-  local otherBottom = y + h
-
-  if playerBottom <= y then -- bottom of player collides with top of platform.
-    return 'slide'
-  end
-end
 
 function dBoss:update(dt)
-  local prevX, prevY = self.x, self.y
-  local width = 32
-  local height =32 
 end
 
 function dBoss:draw()
-  love.graphics.draw(self.img, frames[currentFrame], self.x, self.y,0,self.sx, self.sy,self.offset)
-  love.graphics.scale(.5,.5)
+  love.graphics.push()
+  love.graphics.scale(.2, .2) 
+  love.graphics.draw(self.img, frames[currentFrame], self.x*5, self.y*5,0,-self.sx, self.sy,self.offset)
+  love.graphics.pop()
 end
 
 

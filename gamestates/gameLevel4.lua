@@ -5,10 +5,10 @@ local Class = require 'libs/hump/class'
 
 -- Grab our base class
 local LevelBase = require 'gamestates.LevelBase'
+local gameLevel5 = require 'gamestates/gameLevel5'
 
 -- Import the Entities we will build.
 local Player = require 'entities.player'
-local salaryman = require 'entities.salaryman'
 local buffBoss = require 'entities.buffBoss'
 local camera = require 'libs.camera'
 
@@ -25,7 +25,9 @@ end
 
 function gameLevel4:enter()
   player = Player(self.world,  45*16, 45*16-4)
+  boss = buffBoss(self.world, 47*16, 1*16+8)
   LevelBase.Entities:add(player) -- add the player to the level
+  LevelBase.Entities:add(boss)
 end
 
 function gameLevel4:update(dt)
@@ -33,6 +35,14 @@ function gameLevel4:update(dt)
   LevelBase.Entities:update(dt) -- this executes the update function for each individual Entity
 
   LevelBase.positionCamera(self, player, camera)
+  
+  if player.x >= (46*16) and player.x < (47*16) and player.y >= (1*16) and player.y < (2*16) then 
+    Gamestate.switch(gameLevel5)
+  elseif player.x < 0 or player .x > 800 or player.y > 800 then
+    LevelBase.Entities:remove(player)
+    LevelBase.Entities:remove(boss)
+    Gamestate.switch(gameLevel4)
+  end
 end
 
 function gameLevel4:draw()

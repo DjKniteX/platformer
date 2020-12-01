@@ -30,7 +30,7 @@ end
 
 function mainMenu:keypressed(key)
     if key == 'return' then
-      Gamestate.switch(gameLevel1)
+      Gamestate.switch(gameLevel2)
     end
   end
 

@@ -8,21 +8,22 @@ local currentFrame = 1
 
 
 
-local reaper = Class{
+local dBoss = Class{
   __includes = Entity -- Player class inherits our Entity class
 }
 
-function reaper:init(world, x, y)
-  self.img = love.graphics.newImage('/assets/Undead executioner puppet/png/idle.png')
+function dBoss:init(world, x, y)
+  self.img = love.graphics.newImage('/assets/spr_wasp_idle_anim.gif')
   for y = 1, 1 do
     for x = 1, 1 do
-      table.insert(frames, love.graphics.newQuad(125 * x - 125, 125 * y - 125, 125, 100, self.img:getDimensions()))
+      table.insert(frames, love.graphics.newQuad(96 * x - 96, 96 * y - 96, 96, 96, self.img:getDimensions()))
     end
   end
 
   
 
   Entity.init(self, world, x, y, 16, 32)
+
 
   self.sx = 1
   self.sy = 1
@@ -31,15 +32,16 @@ function reaper:init(world, x, y)
   self.world:add(self, self:getRect())
 end
 
-function reaper:update(dt)
+
+function dBoss:update(dt)
 end
 
-function reaper:draw()
+function dBoss:draw()
   love.graphics.push()
-  love.graphics.scale(1.25, 1.25) 
-  love.graphics.draw(self.img, frames[currentFrame], self.x*.8, self.y*.8,0,self.sx, self.sy,self.offset)
+  love.graphics.scale(.5, .5) 
+  love.graphics.draw(self.img, frames[currentFrame], self.x*2, self.y*2,0,self.sx, self.sy,self.offset)
   love.graphics.pop()
 end
 
 
-return reaper
+return dBoss
