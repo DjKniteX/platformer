@@ -29,7 +29,7 @@ function player:init(world, x, y)
   self.acc = 160 -- the acceleration of our player
   self.maxSpeed = 8 -- the top speed
   self.friction = 140 -- slow our player down - we could toggle this situationally to create icy or slick platforms
-  self.gravity = 150 -- we will accelerate towards the bottom
+  self.gravity = 165 -- we will accelerate towards the bottom
 
     -- These are values applying specifically to jumping
   self.isJumping = false -- are we in the process of jumping?
@@ -39,10 +39,10 @@ function player:init(world, x, y)
   self.jumpMaxSpeed = 11 -- our speed limit while jumping
   self.graceTime = 0
   self.graceDuration = 0.1
-  self.countdown = .25
+  self.countdown = .22
 
   self.world:add(self, self:getRect())
-
+  self.fall = false
   self.sx = 1
   self.sy = 1
   self.offset = 15
@@ -94,7 +94,6 @@ function player:incrementBones()
 end
 
 function player:update(dt)
-  --print(self.x, self.y)
   Bone.updateAll(dt)
   local prevX, prevY = self.x, self.y
   -- Apply Friction
@@ -120,7 +119,6 @@ function player:update(dt)
   -- The Jump code gets a lttle bit crazy.  Bare with me.
   if love.keyboard.isDown("up", "w") then
     if self.isGrounded or self.graceTime > 0 then
-      --print(self.isGrounded)
       self.yVelocity = self.yVelocity - self.jumpAcc
       self.graceTime = 0
       self.isJumping = true
@@ -129,9 +127,10 @@ function player:update(dt)
   end
 
   if self.isJumping then
-    if self.countdown <= 0  or not love.keyboard.isDown("up","w") then
-      self.countdown = .25
+    if self.countdown <= 0  or not love.keyboard.isDown("up","w") or self.fall then
+      self.countdown = .22
       self.isJumping = false
+      self.fall = false
     elseif not (self.yVelocity < -self.jumpMaxSpeed) then
       self.yVelocity = self.yVelocity - self.jumpAcc
       self.countdown= self.countdown - dt
@@ -146,7 +145,6 @@ function player:update(dt)
   self.x, self.y, collisions, len = self.world:move(self, goalX, goalY, self.collisionFilter)
   if len == 0 then
     self.isGrounded = false
-    print("air1")
   end
 
   -- Loop through those collisions to see if anything important is happening
@@ -155,10 +153,9 @@ function player:update(dt)
       self.hasReachedMax = false
       self.isGrounded = true
       self.graceTime = self.graceDuration
-      print("ground")
     elseif coll.touch.y > goalY then
       self.isGrounded = false
-      print("ceiling")
+      self.countdown = self.countdown / 2
     end
     
   end
