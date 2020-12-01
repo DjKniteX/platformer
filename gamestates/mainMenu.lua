@@ -8,6 +8,7 @@ local gameLevel2 = require 'gamestates/gameLevel2'
 local gameLevel3 = require 'gamestates/gameLevel3'
 local gameLevel4 = require 'gamestates/gameLevel4'
 local gameLevel5 = require 'gamestates/gameLevel5'
+local ending = require 'gamestates/ending'
 mainMenu1 = love.graphics.newImage('/assets/main1.png')
 
 

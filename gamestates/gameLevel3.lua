@@ -50,6 +50,7 @@ function gameLevel3:update(dt)
 end
 
 function gameLevel3:draw()
+  love.graphics.reset()
   -- Attach the camera before drawing the entities
   camera:set()
   love.graphics.setBackgroundColor(.341,.145,.231)
