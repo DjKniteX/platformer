@@ -183,7 +183,6 @@ end
 
 function player:draw()
   love.graphics.draw(self.img, frames[currentFrame], self.x+8, self.y-8,0,self.sx, self.sy,self.offset)
-  love.graphics.rectangle('line', self:getRect())
 end
 
 function beginContact(a, b, collisions)
