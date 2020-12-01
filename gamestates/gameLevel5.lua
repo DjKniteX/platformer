@@ -62,12 +62,5 @@ function gameLevel5:keypressed(key)
   LevelBase:keypressed(key)
 end
 
-function love.keypressed( key )
-	Player:keypressed(key)
-end
-  
-function love.keyreleased( key )
-	Player:keyreleased(key)
-end
 
 return gameLevel5
